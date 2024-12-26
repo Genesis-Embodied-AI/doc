@@ -141,7 +141,16 @@ git submodule update --init --recursive
         cmake --build build -j $(nproc)
         ```
         The `CONDA_INCLUDE_PATH` typically looks like: `/home/user/anaconda3/envs/genesis/include`
-### 4. FAQs
+
+### 4. Install
+- Link the build files into the `ext` folder of your `genesis` install, so that python can import it
+    ```
+    PYTHON_PKG_PATH=$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')
+    cd .. # you should now be in `genesis/ext`
+    ln -s $PWD/LuisaRender $PYTHON_PKG_PATH/genesis/ext
+    ```
+
+### 5. FAQs
 - Assertion 'lerror’ failed: Failed to write to the process: Broken pipe:
   You may need to use CUDA of the same version as compiled.
 - if you followed 2.A and see "`GLIBCXX_3.4.30` not found"
